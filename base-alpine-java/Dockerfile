@@ -7,7 +7,7 @@ MAINTAINER Thorben Brinkmann <thorben@tcbweb.de>
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-RUN apk --update add curl tar openjdk8
+RUN apk --update add curl tar unzip openjdk8
 
 # Create workdir
 RUN mkdir -p /opt/tcbweb
