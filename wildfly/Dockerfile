@@ -27,8 +27,8 @@ ENV LAUNCH_JBOSS_IN_BACKGROUND true
 USER tcbweb
 
 # Expose the ports we're interested in
-EXPOSE 8080
+EXPOSE 8080 9990
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/tcbweb/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+CMD ["/opt/tcbweb/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
