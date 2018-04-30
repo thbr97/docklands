@@ -1,0 +1,1 @@
+# Wildfly application server with preconfigured postgresql datasource
