@@ -1,0 +1,14 @@
+# Mark the commands below to be run as a batch
+batch
+
+# Add the postgrsql driver module
+module add --name=org.postgres --resources=/tmp/postgresql-${POSTGRESQL_VERSION}.jar --dependencies=javax.api,javax.transaction.api
+
+# Add Postgresql driver
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver)
+
+# Add the datasource
+data-source add --name=tcbwebDS --driver-name=postgres --jndi-name=java:jdbc/tcbwebDS --connection-url=jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=${DB_USER} --password=${DB_PASSWORD} --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
+
+# Execute the batch
+run-batch
