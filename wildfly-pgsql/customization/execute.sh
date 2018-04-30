@@ -18,6 +18,10 @@ wait_for_server
 echo "=> Setup Datasource"
 $JBOSS_CLI -c << EOF
 batch
+
+# Disable standard ExampleDS
+data-source disable --name=ExampleDS
+
 # Add the postgrsql driver module
 module add --name=org.postgres --resources=/tmp/postgresql-${POSTGRESQL_VERSION}.jar --dependencies=javax.api,javax.transaction.api
 
