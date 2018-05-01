@@ -19,9 +19,6 @@ echo "=> Setup Datasource"
 $JBOSS_CLI -c << EOF
 batch
 
-# Disable standard ExampleDS
-data-source disable --name=ExampleDS
-
 # Add the postgrsql driver module
 module add --name=org.postgres --resources=/tmp/postgresql-${POSTGRESQL_VERSION}.jar --dependencies=javax.api,javax.transaction.api
 
@@ -29,7 +26,7 @@ module add --name=org.postgres --resources=/tmp/postgresql-${POSTGRESQL_VERSION}
 /subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver)
 
 # Add the datasource
-data-source add --name=tcbwebDS --driver-name=postgres --jndi-name=java:/jdbc/tcbwebDS --connection-url=jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=${DB_USER} --password=${DB_PASSWORD} --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
+data-source add --name=PostgresDS --driver-name=postgres --jndi-name=java:/PostgresDS --connection-url=jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=${DB_USER} --password=${DB_PASSWORD} --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
 
 run-batch
 EOF
@@ -42,6 +39,9 @@ if [ "$JBOSS_MODE" = "standalone" ]; then
 else
   $JBOSS_CLI -c "/host=*:shutdown"
 fi
+
+echo "=> Deploying application"
+cp -R ${DEPLOY_DIR}/* ${WILDFLY_DEPLOY_DIR}
 
 echo "-> Starting Wildfly with configuration"
 $JBOSS_HOME/bin/$JBOSS_MODE.sh -c $JBOSS_CONFIG -b 0.0.0.0 -bmanagement 0.0.0.0
