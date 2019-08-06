@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: mariadb:10
+    command:
+      - --character-set-server=utf8
+      - --collation-server=utf8_unicode_ci
+    environment:
+      - "MYSQL_USER=${MYSQL_USER:-wordpress}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}"
+      - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
+    volumes:
+      - db_data:/var/lib/mysql
+  wp:
+    image: wordpress:5-php7.2
+    ports:
+      - '8000:80'
+      - '8443:443'
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - './wp_data:/var/www/html'
+    environment:
+      - "WORDPRESS_DB_USER=${WORDPRESS_DB_USER:-wordpress}"
+      - "WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD:-password}"
+      - "WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST:-db}"
+
+volumes:
+  db_data:
