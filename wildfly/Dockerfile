@@ -2,8 +2,8 @@
 FROM tcbweb/base-alpine-java
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 12.0.0.Final
-ENV WILDFLY_SHA1 b2039cc4979c7e50a0b6ee0e5153d13d537d492f 
+ENV WILDFLY_VERSION 22.0.1.Final
+ENV WILDFLY_SHA1 624bd3ca7e66accf5494028f5ebabcb119339803
 ENV JBOSS_HOME /opt/tcbweb/wildfly
 ENV DEPLOYMENT_DIR ${JBOSS_HOME}/standalone/deployments/
 ENV CONFIGURATION_DIR ${JBOSS_HOME}/standalone/configuration/

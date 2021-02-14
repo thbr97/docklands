@@ -1,7 +1,7 @@
 FROM tcbweb/wildfly:latest
 
 ENV JBOSS_HOME /opt/tcbweb/wildfly
-ENV POSTGRESQL_VERSION 42.2.2
+ENV POSTGRESQL_VERSION 42.2.18
 
 ENV DB_HOST=postgresql
 ENV DB_NAME=tcbweb

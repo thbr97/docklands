@@ -13,7 +13,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
   wp:
-    image: wordpress:5-php7.2
+    image: wordpress:5-php7.4
     ports:
       - '8000:80'
       - '8443:443'
